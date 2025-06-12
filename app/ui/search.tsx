@@ -2,6 +2,7 @@
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
@@ -11,6 +12,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   function handleSearch(term: string) {
     console.log(`searching.... ${term}`);
     const params = new URLSearchParams(searchParams);
+    params.set('Page', '1'); // Reset to first page on new search
     if (term) {
       params.set('query', term);
     } else {
