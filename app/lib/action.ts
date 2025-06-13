@@ -113,6 +113,17 @@ export async function deleteInvoice(id: string) {
   }
 }
 
+// delete customer
+export async function deleteCustomer(id: string) {
+  try {
+    await sql`DELETE FROM customers WHERE id = ${id}`;
+    revalidatePath("/dashboard/customers");
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete customer.");
+  }
+}
+
 // Auth
 export async function authenticate(
   prevState: string | undefined,
